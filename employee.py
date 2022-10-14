@@ -4,16 +4,36 @@
 from typing import Optional
 from abc import ABCMeta, abstractmethod
 
+##### Abstract Classes #####
 
 class Commission(metaclass=ABCMeta):
     @abstractmethod
     def __str__(self) -> str:
         raise NotImplementedError()
 
+    """
+    Returns Monthly pay from commission
+    """
     @abstractmethod
     def get_pay(self) -> int:
         raise NotImplementedError()
 
+class BasePay(metaclass=ABCMeta):
+
+    @abstractmethod
+    def __str__(self) -> str:
+        raise NotImplementedError()
+
+    """
+    Returns Monthly pay from base pay
+    """
+    @abstractmethod
+    def get_pay(self) -> int:
+        raise NotImplementedError()
+
+##### CONCRETE IMPLEMENTATIONS #####
+
+## Commission implementation
 
 class BonusCommission(Commission):
     __amount: int
@@ -42,16 +62,7 @@ class ContractComission(Commission):
         return self.__amount_per * self.__contracts
 
 
-class BasePay(metaclass=ABCMeta):
-
-    @abstractmethod
-    def __str__(self) -> str:
-        raise NotImplementedError()
-
-    @abstractmethod
-    def get_pay(self) -> int:
-        raise NotImplementedError()
-
+## BasePay implementations
 
 class SalaryPay(BasePay):
     __monthly_pay: int
@@ -79,6 +90,8 @@ class ContractPay(BasePay):
     
     def get_pay(self) -> int:
         return self.__hours * self.__per_hour
+
+#### EMPLOYEE IMPLEMENTATION ####
 
 class Employee:
     __name: str
